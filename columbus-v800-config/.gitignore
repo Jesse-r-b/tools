@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+*.log
+
+# Vendor specification: SIMCom proprietary, explicitly not redistributable.
+# Keep a local copy here if you have one; it is never committed.
+docs/MT3333_NMEA_Message_Specification_V1.00.pdf
+docs/MT3333_NMEA_Message_Specification_V1.00.txt
