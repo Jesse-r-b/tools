@@ -309,3 +309,11 @@ python -m pytest
   after a change, and says so if nothing decodes.
 - Static navigation (`PMTK386`) fabricates a stationary position below its
   threshold. Leave it at 0 for data you intend to analyse.
+
+## License
+
+[MIT](../LICENSE).
+
+PySide6 (Qt) is used under the LGPL-3.0 and is not redistributed here; pyserial
+is BSD. The MT3333 specification referenced throughout `v800/pmtk.py` is SIMCom
+proprietary and is deliberately not included — see [docs/](docs/).
