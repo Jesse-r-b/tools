@@ -8,8 +8,6 @@ Personal collection of small standalone utilities, one per folder.
   V-800 MarkIII USB GNSS receiver (PySide6). Sky view, NMEA output control, update
   rate, constellations; speaks the receiver's actual CASIC protocol, not the
   MediaTek one it is usually assumed to use.
-- [`hackrf-tv-scanner/`](hackrf-tv-scanner/) - scan RF spectrum with a HackRF for
-  analogue TV carriers (NTSC/PAL/SECAM) and demodulate video + audio in real time.
 
 ## License
 
