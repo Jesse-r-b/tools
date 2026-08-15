@@ -431,8 +431,16 @@ def _named_dnsmasq_instance(network_id):
       3. Even scoped to its own interface, it still competes for
          127.0.0.1 with the default instance unless `localuse=0` tells
          it not to participate in local/loopback resolution.
+      4. Even with all of the above, bind-dynamic still separately
+         tries to grab 127.0.0.1 alongside its explicit interface list
+         unless `list notinterface 'lo'` excludes it too - this is the
+         documented pairing in dnsmasq's own shipped default template
+         (package/network/services/dnsmasq/files/dhcp.conf ships
+         "list interface br-lan" / "list notinterface lo" together,
+         commented out, as the example for exactly this scoped-instance
+         pattern), not a guess.
 
-    Any one of these three missing is enough for procd to end up
+    Any one of these four missing is enough for procd to end up
     running only one of the two instances ("running (1/2)"), with the
     UCI config looking completely correct either way - confirmed live.
     """
@@ -451,6 +459,7 @@ config dnsmasq '{network_id}_dns'
 \toption ednspacket_max '1232'
 \toption localuse '0'
 \tlist interface '{network_id}'
+\tlist notinterface 'lo'
 """
 
 
