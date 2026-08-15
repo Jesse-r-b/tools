@@ -25,6 +25,7 @@ import curses
 import curses.textpad
 import json
 import os
+import secrets
 import sys
 
 import image_patcher
@@ -47,6 +48,14 @@ def _default_ap_ssid(hostname):
     return f"WiFi-{hostname}"
 
 
+def _random_secret(nbytes=12):
+    """A fresh random secret per profile - never a hardcoded literal.
+    A shared hardcoded default here previously leaked the real mesh
+    passphrase into public git history because nobody ever had a
+    reason to change it away from the tool's own default."""
+    return secrets.token_urlsafe(nbytes)
+
+
 def default_profile(hostname="Node-1"):
     country = REGDB.default_country()
     bw = REGDB.narrowest_bandwidth(country)
@@ -55,7 +64,7 @@ def default_profile(hostname="Node-1"):
 
     return {
         "hostname": hostname,
-        "admin_password": "***REDACTED-DEFAULT-ADMIN-PASSWORD***",
+        "admin_password": _random_secret(),
         "role": "gate",
         "gate_mode": "router",
         "point_mode": "extender",
@@ -65,7 +74,7 @@ def default_profile(hostname="Node-1"):
             "radio": "radio2",
             "path": RADIO2_PATH,
             "mesh_id": "jbMesh",
-            "passphrase": "***REDACTED-REAL-MESH-PASSPHRASE***",
+            "passphrase": _random_secret(),
             "encryption": "sae",
             "country": country,
             "bandwidth_mhz": bw,
@@ -85,7 +94,7 @@ def default_profile(hostname="Node-1"):
                 "htmode": "HT20",
                 "enabled": True,
                 "ssid": _default_ap_ssid(hostname),
-                "passphrase": "***REDACTED-DEFAULT-AP-PASSPHRASE***",
+                "passphrase": _random_secret(),
                 "encryption": "psk2",
             }
         ],
